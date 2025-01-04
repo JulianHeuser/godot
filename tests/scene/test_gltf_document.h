@@ -60,12 +60,13 @@ struct GLTFTestCase {
 };
 
 const GLTFTestCase glTF_test_cases[] = {
+	// Test 1
 	{ "models/cube.gltf",
 			"",
 			"Khronos glTF Blender I/O v4.3.47",
 			"2.0",
+			// Array sizes
 			{
-					// Array sizes
 					{ "nodes", 1 },
 					{ "buffers", 1 },
 					{ "buffer_views", 13 },
@@ -82,8 +83,8 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "skeletons", 0 },
 					{ "animations", 1 },
 			},
+			// Json array sizes
 			{
-					// Json array sizes
 					{ "scenes", 1 },
 					{ "nodes", 1 },
 					{ "animations", 1 },
@@ -92,17 +93,19 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "bufferViews", 13 },
 					{ "buffers", 1 },
 			},
-			{ // Key-value pairs
+			// Key-value pairs
+			{
 					{ "major_version", 2 },
 					{ "minor_version", 0 },
 					{ "scene_name", "cube" },
 					{ "filename", "cube" } } },
+	// Test 2
 	{ "models/suzanne.glb",
 			"this is example text",
 			"Khronos glTF Blender I/O v4.3.47",
 			"2.0",
+			// Array sizes
 			{
-					// Array sizes
 					{ "glb_data", 68908 },
 					{ "nodes", 2 },
 					{ "buffers", 1 },
@@ -121,8 +124,8 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "skeletons", 0 },
 					{ "animations", 0 },
 			},
+			// Json array sizes
 			{
-					// Json array sizes
 					{ "scenes", 1 },
 					{ "nodes", 2 },
 					{ "cameras", 1 },
@@ -134,7 +137,8 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "bufferViews", 5 },
 					{ "buffers", 1 },
 			},
-			{ // Key-value pairs
+			// Key-value pairs
+			{
 					{ "major_version", 2 },
 					{ "minor_version", 0 },
 					{ "scene_name", "suzanne" },

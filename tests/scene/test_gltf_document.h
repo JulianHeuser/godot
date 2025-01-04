@@ -40,209 +40,198 @@
 namespace TestGLTFDocument {
 
 struct GLTFArraySize {
-    String key;
-    int val;
+	String key;
+	int val;
 };
 
 struct GLTFKeyValue {
-    String key;
-    Variant val;
+	String key;
+	Variant val;
 };
 
 struct GLTFTestCase {
-    String filename;
-    String copywrite;
-    String generator;
-    String version;
-    Vector<GLTFArraySize> array_sizes;
-    Vector<GLTFArraySize> json_array_sizes;
-    Vector<GLTFKeyValue> keyvalues;
+	String filename;
+	String copywrite;
+	String generator;
+	String version;
+	Vector<GLTFArraySize> array_sizes;
+	Vector<GLTFArraySize> json_array_sizes;
+	Vector<GLTFKeyValue> keyvalues;
 };
 
 const GLTFTestCase glTF_test_cases[] = {
-    {
-        "models/cube.gltf",
-        "",
-        "Khronos glTF Blender I/O v4.3.47",
-        "2.0",
-        {   
-            // Array sizes
-            {"nodes", 1 },
-            {"buffers", 1 },
-            {"buffer_views", 13 },
-            {"accessors", 13 },
-            {"meshes", 1 },
-            {"materials", 2 },
-            {"root_nodes", 1 },
-            {"textures", 0 },
-            {"texture_samplers", 0 },
-            {"images", 0 },
-            {"skins", 0 },
-            {"cameras", 0 },
-            {"lights", 0 },
-            {"skeletons", 0 },
-            {"animations", 1 },
-        },
-        {
-            // Json array sizes
-            {"scenes", 1 },
-            {"nodes", 1 },
-            {"animations", 1 },
-            {"meshes", 1 },
-            {"accessors", 13 },
-            {"bufferViews", 13 },
-            {"buffers", 1 },
-        },
-        {
-            // Key-value pairs
-            {"major_version", 2 },
-            {"minor_version", 0 },
-            {"scene_name", "cube" },
-            {"filename", "cube" }
-        }
-    },
-    {
-        "models/suzanne.glb",
-        "this is example text",
-        "Khronos glTF Blender I/O v4.3.47",
-        "2.0",
-        {   
-            // Array sizes
-            {"glb_data", 68908},
-            {"nodes", 2 },
-            {"buffers", 1 },
-            {"buffer_views", 5 },
-            {"accessors", 4 },
-            {"meshes", 1 },
-            {"materials", 1 },
-            {"root_nodes", 2 },
-            {"textures", 1 },
-            {"texture_samplers", 1 },
-            {"images", 1 },
-            {"skins", 0 },
-            {"cameras", 1 },
-            {"lights", 0 },
-            {"unique_names", 4 },
-            {"skeletons", 0 },
-            {"animations", 0 },
-        },
-        {
-            // Json array sizes
-            {"scenes", 1 },
-            {"nodes", 2 },
-            {"cameras", 1 },
-            {"materials", 1 },
-            {"meshes", 1 },
-            {"textures", 1 },
-            {"images", 1 },
-            {"accessors", 4 },
-            {"bufferViews", 5 },
-            {"buffers", 1 },
-        },
-        {
-            // Key-value pairs
-            {"major_version", 2 },
-            {"minor_version", 0 },
-            {"scene_name", "suzanne" },
-            {"filename", "suzanne" }
-        }
-    },
+	{ "models/cube.gltf",
+			"",
+			"Khronos glTF Blender I/O v4.3.47",
+			"2.0",
+			{
+					// Array sizes
+					{ "nodes", 1 },
+					{ "buffers", 1 },
+					{ "buffer_views", 13 },
+					{ "accessors", 13 },
+					{ "meshes", 1 },
+					{ "materials", 2 },
+					{ "root_nodes", 1 },
+					{ "textures", 0 },
+					{ "texture_samplers", 0 },
+					{ "images", 0 },
+					{ "skins", 0 },
+					{ "cameras", 0 },
+					{ "lights", 0 },
+					{ "skeletons", 0 },
+					{ "animations", 1 },
+			},
+			{
+					// Json array sizes
+					{ "scenes", 1 },
+					{ "nodes", 1 },
+					{ "animations", 1 },
+					{ "meshes", 1 },
+					{ "accessors", 13 },
+					{ "bufferViews", 13 },
+					{ "buffers", 1 },
+			},
+			{ // Key-value pairs
+					{ "major_version", 2 },
+					{ "minor_version", 0 },
+					{ "scene_name", "cube" },
+					{ "filename", "cube" } } },
+	{ "models/suzanne.glb",
+			"this is example text",
+			"Khronos glTF Blender I/O v4.3.47",
+			"2.0",
+			{
+					// Array sizes
+					{ "glb_data", 68908 },
+					{ "nodes", 2 },
+					{ "buffers", 1 },
+					{ "buffer_views", 5 },
+					{ "accessors", 4 },
+					{ "meshes", 1 },
+					{ "materials", 1 },
+					{ "root_nodes", 2 },
+					{ "textures", 1 },
+					{ "texture_samplers", 1 },
+					{ "images", 1 },
+					{ "skins", 0 },
+					{ "cameras", 1 },
+					{ "lights", 0 },
+					{ "unique_names", 4 },
+					{ "skeletons", 0 },
+					{ "animations", 0 },
+			},
+			{
+					// Json array sizes
+					{ "scenes", 1 },
+					{ "nodes", 2 },
+					{ "cameras", 1 },
+					{ "materials", 1 },
+					{ "meshes", 1 },
+					{ "textures", 1 },
+					{ "images", 1 },
+					{ "accessors", 4 },
+					{ "bufferViews", 5 },
+					{ "buffers", 1 },
+			},
+			{ // Key-value pairs
+					{ "major_version", 2 },
+					{ "minor_version", 0 },
+					{ "scene_name", "suzanne" },
+					{ "filename", "suzanne" } } },
 };
 
-void test_gltf_document_values( Ref<GLTFDocument> &gltf_document, Ref<GLTFState> &gltf_state, const GLTFTestCase &test_case ) {
-    // Check gltf load
-    const Error err = gltf_document->append_from_file( TestUtils::get_data_path(test_case.filename), gltf_state );
-    REQUIRE (err == OK);
+void test_gltf_document_values(Ref<GLTFDocument> &gltf_document, Ref<GLTFState> &gltf_state, const GLTFTestCase &test_case) {
+	// Check gltf load
+	const Error err = gltf_document->append_from_file(TestUtils::get_data_path(test_case.filename), gltf_state);
+	REQUIRE(err == OK);
 
+	for (GLTFArraySize array_size : test_case.array_sizes) {
+		CHECK_MESSAGE(((Array)(gltf_state->getvar(array_size.key))).size() == array_size.val, "Expected \"", array_size.key, "\" to have ", array_size.val, " elements.");
+	}
 
-    for ( GLTFArraySize array_size : test_case.array_sizes ) {
-        CHECK_MESSAGE(((Array)(gltf_state->getvar(array_size.key))).size() == array_size.val, "Expected \"", array_size.key, "\" to have ", array_size.val, " elements.");
-    }
+	for (GLTFArraySize array_size : test_case.json_array_sizes) {
+		CHECK(gltf_state->get_json().has(array_size.key));
+		CHECK_MESSAGE(((Array)(gltf_state->get_json()[array_size.key])).size() == array_size.val, "Expected \"", array_size.key, "\" to have ", array_size.val, " elements.");
+	}
 
-    for ( GLTFArraySize array_size : test_case.json_array_sizes ) {
-        CHECK(gltf_state->get_json().has(array_size.key));
-        CHECK_MESSAGE(((Array)(gltf_state->get_json()[array_size.key])).size() == array_size.val, "Expected \"", array_size.key, "\" to have ", array_size.val, " elements.");
-    }
+	for (GLTFKeyValue key_value : test_case.keyvalues) {
+		CHECK_MESSAGE(gltf_state->getvar(key_value.key) == key_value.val, "Expected \"", key_value.key, "\" to be \"", key_value.val, "\".");
+	}
 
-    for ( GLTFKeyValue key_value : test_case.keyvalues ) {
-        CHECK_MESSAGE(gltf_state->getvar(key_value.key) == key_value.val, "Expected \"", key_value.key, "\" to be \"", key_value.val, "\".");
-    }
-
-    CHECK(gltf_state->get_copyright() == test_case.copywrite);
-    CHECK(((Dictionary)gltf_state->get_json()["asset"])["generator"] == test_case.generator);
-    CHECK(((Dictionary)gltf_state->get_json()["asset"])["version"] == test_case.version);
+	CHECK(gltf_state->get_copyright() == test_case.copywrite);
+	CHECK(((Dictionary)gltf_state->get_json()["asset"])["generator"] == test_case.generator);
+	CHECK(((Dictionary)gltf_state->get_json()["asset"])["version"] == test_case.version);
 }
 
 void test_gltf_save(Node *node) {
-    // Save scene to gltf
-    Ref<GLTFDocument> gltf_document_save;
-    gltf_document_save.instantiate();
-    Ref<GLTFState> gltf_state_save;
-    gltf_state_save.instantiate();
+	// Save scene to gltf
+	Ref<GLTFDocument> gltf_document_save;
+	gltf_document_save.instantiate();
+	Ref<GLTFState> gltf_state_save;
+	gltf_state_save.instantiate();
 
-    gltf_document_save->append_from_scene(node, gltf_state_save);
+	gltf_document_save->append_from_scene(node, gltf_state_save);
 
-    // Check saving to gltf and to glb
-    const Error err_save_gltf = gltf_document_save->write_to_filesystem(gltf_state_save, TestUtils::get_temp_path("cube.gltf"));
-    const Error err_save_glb = gltf_document_save->write_to_filesystem(gltf_state_save, TestUtils::get_temp_path("cube.glb"));
-    CHECK (err_save_gltf == OK);
-    CHECK (err_save_glb == OK);
+	// Check saving to gltf and to glb
+	const Error err_save_gltf = gltf_document_save->write_to_filesystem(gltf_state_save, TestUtils::get_temp_path("cube.gltf"));
+	const Error err_save_glb = gltf_document_save->write_to_filesystem(gltf_state_save, TestUtils::get_temp_path("cube.glb"));
+	CHECK(err_save_gltf == OK);
+	CHECK(err_save_glb == OK);
 }
 
 TEST_CASE("[SceneTree][GLTFDocument] Load cube.gltf") {
+	Ref<GLTFDocument> gltf_document;
+	gltf_document.instantiate();
+	Ref<GLTFState> gltf_state;
+	gltf_state.instantiate();
 
-    Ref<GLTFDocument> gltf_document;
-    gltf_document.instantiate();
-    Ref<GLTFState> gltf_state;
-    gltf_state.instantiate();
+	test_gltf_document_values(gltf_document, gltf_state, glTF_test_cases[0]);
 
-    test_gltf_document_values( gltf_document, gltf_state, glTF_test_cases[0]);
+	// Create scene
+	Node *node = gltf_document->generate_scene(gltf_state);
 
-    // Create scene
-    Node *node = gltf_document->generate_scene(gltf_state);
+	CHECK(node->get_class_name() == "Node3D");
+	CHECK(node->get_name() == "cube");
 
-    CHECK( node->get_class_name() == "Node3D" );
-    CHECK( node->get_name() == "cube" );
+	CHECK(node->get_child(0)->get_class_name() == "ImporterMeshInstance3D");
+	CHECK(node->get_child(0)->get_name() == "Cube");
 
-    CHECK( node->get_child(0)->get_class_name() == "ImporterMeshInstance3D" );
-    CHECK( node->get_child(0)->get_name() == "Cube" );
+	CHECK(node->get_child(1)->get_class_name() == "AnimationPlayer");
+	CHECK(node->get_child(1)->get_name() == "AnimationPlayer");
 
-    CHECK( node->get_child(1)->get_class_name() == "AnimationPlayer" );
-    CHECK( node->get_child(1)->get_name() == "AnimationPlayer" );
+	// Save scene to gltf
+	test_gltf_save(node);
 
-    // Save scene to gltf
-    test_gltf_save(node);
-
-    // Clean up
-    memdelete(node);
+	// Clean up
+	memdelete(node);
 }
 
 TEST_CASE("[SceneTree][GLTFDocument] Load suzanne.glb") {
+	Ref<GLTFDocument> gltf_document;
+	gltf_document.instantiate();
+	Ref<GLTFState> gltf_state;
+	gltf_state.instantiate();
 
-    Ref<GLTFDocument> gltf_document;
-    gltf_document.instantiate();
-    Ref<GLTFState> gltf_state;
-    gltf_state.instantiate();
+	test_gltf_document_values(gltf_document, gltf_state, glTF_test_cases[1]);
 
-    test_gltf_document_values( gltf_document, gltf_state, glTF_test_cases[1]);
+	// Create scene
+	Node *node = gltf_document->generate_scene(gltf_state);
 
-    // Create scene
-    Node *node = gltf_document->generate_scene(gltf_state);
+	CHECK(node->get_class_name() == "Node3D");
+	CHECK(node->get_name() == "suzanne");
 
-    CHECK( node->get_class_name() == "Node3D" );
-    CHECK( node->get_name() == "suzanne" );
+	CHECK(node->get_child(0)->get_class_name() == "ImporterMeshInstance3D");
+	CHECK(node->get_child(0)->get_name() == "Suzanne");
 
-    CHECK( node->get_child(0)->get_class_name() == "ImporterMeshInstance3D" );
-    CHECK( node->get_child(0)->get_name() == "Suzanne" );
+	CHECK(node->get_child(1)->get_class_name() == "Camera3D");
+	CHECK(node->get_child(1)->get_name() == "Camera");
 
-    CHECK( node->get_child(1)->get_class_name() == "Camera3D" );
-    CHECK( node->get_child(1)->get_name() == "Camera" );
+	// Save scene to gltf
+	test_gltf_save(node);
 
-    // Save scene to gltf
-    test_gltf_save(node);
-
-    // Clean up
-    memdelete(node);
+	// Clean up
+	memdelete(node);
 }
 
 } // namespace TestGLTFDocument

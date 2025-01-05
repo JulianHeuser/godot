@@ -61,12 +61,12 @@ struct GLTFTestCase {
 };
 
 const GLTFTestCase glTF_test_cases[] = {
-	// Test 1
+	// Test 1.
 	{ "models/cube.gltf",
 			"",
 			"Khronos glTF Blender I/O v4.3.47",
 			"2.0",
-			// Array sizes
+			// Array sizes.
 			{
 					{ "nodes", 1 },
 					{ "buffers", 1 },
@@ -84,7 +84,7 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "skeletons", 0 },
 					{ "animations", 1 },
 			},
-			// Json array sizes
+			// Json array sizes.
 			{
 					{ "scenes", 1 },
 					{ "nodes", 1 },
@@ -94,18 +94,18 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "bufferViews", 13 },
 					{ "buffers", 1 },
 			},
-			// Key-value pairs
+			// Key-value pairs.
 			{
 					{ "major_version", 2 },
 					{ "minor_version", 0 },
 					{ "scene_name", "cube" },
 					{ "filename", "cube" } } },
-	// Test 2
+	// Test 2.
 	{ "models/suzanne.glb",
 			"this is example text",
 			"Khronos glTF Blender I/O v4.3.47",
 			"2.0",
-			// Array sizes
+			// Array sizes.
 			{
 					{ "glb_data", 68908 },
 					{ "nodes", 2 },
@@ -125,7 +125,7 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "skeletons", 0 },
 					{ "animations", 0 },
 			},
-			// Json array sizes
+			// Json array sizes.
 			{
 					{ "scenes", 1 },
 					{ "nodes", 2 },
@@ -138,7 +138,7 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "bufferViews", 5 },
 					{ "buffers", 1 },
 			},
-			// Key-value pairs
+			// Key-value pairs.
 			{
 					{ "major_version", 2 },
 					{ "minor_version", 0 },
@@ -149,13 +149,13 @@ const GLTFTestCase glTF_test_cases[] = {
 void register_gltf_extension() {
 	GLTFDocument::unregister_all_gltf_document_extensions();
 
+	// This extension ensures meshes become a MeshInstance3D and not an ImporterMeshInstance3D.
 	Ref<GLTFDocumentExtensionConvertImporterMesh> extension_GLTFDocumentExtensionConvertImporterMesh;
 	extension_GLTFDocumentExtensionConvertImporterMesh.instantiate();
 	GLTFDocument::register_gltf_document_extension(extension_GLTFDocumentExtensionConvertImporterMesh);
 }
 
 void test_gltf_document_values(Ref<GLTFDocument> &gltf_document, Ref<GLTFState> &gltf_state, const GLTFTestCase &test_case) {
-	// Check gltf load
 	const Error err = gltf_document->append_from_file(TestUtils::get_data_path(test_case.filename), gltf_state);
 	REQUIRE(err == OK);
 
@@ -178,7 +178,6 @@ void test_gltf_document_values(Ref<GLTFDocument> &gltf_document, Ref<GLTFState> 
 }
 
 void test_gltf_save(Node *node) {
-	// Save scene to gltf
 	Ref<GLTFDocument> gltf_document_save;
 	gltf_document_save.instantiate();
 	Ref<GLTFState> gltf_state_save;
@@ -186,7 +185,7 @@ void test_gltf_save(Node *node) {
 
 	gltf_document_save->append_from_scene(node, gltf_state_save);
 
-	// Check saving to gltf and to glb
+	// Check saving to gltf and to glb.
 	const Error err_save_gltf = gltf_document_save->write_to_filesystem(gltf_state_save, TestUtils::get_temp_path("cube.gltf"));
 	const Error err_save_glb = gltf_document_save->write_to_filesystem(gltf_state_save, TestUtils::get_temp_path("cube.glb"));
 	CHECK(err_save_gltf == OK);
@@ -203,9 +202,9 @@ TEST_CASE("[SceneTree][GLTFDocument] Load cube.gltf") {
 
 	test_gltf_document_values(gltf_document, gltf_state, glTF_test_cases[0]);
 
-	// Create scene
 	Node *node = gltf_document->generate_scene(gltf_state);
 
+	// Check loaded scene.
 	CHECK(node->is_class("Node3D"));
 	CHECK(node->get_name() == "cube");
 
@@ -215,10 +214,9 @@ TEST_CASE("[SceneTree][GLTFDocument] Load cube.gltf") {
 	CHECK(node->get_child(1)->is_class("AnimationPlayer"));
 	CHECK(node->get_child(1)->get_name() == "AnimationPlayer");
 
-	// Save scene to gltf
 	test_gltf_save(node);
 
-	// Clean up
+	// Clean up.
 	memdelete(node);
 }
 
@@ -232,9 +230,9 @@ TEST_CASE("[SceneTree][GLTFDocument] Load suzanne.glb") {
 
 	test_gltf_document_values(gltf_document, gltf_state, glTF_test_cases[1]);
 
-	// Create scene
 	Node *node = gltf_document->generate_scene(gltf_state);
 
+	// Check loaded scene.
 	CHECK(node->is_class("Node3D"));
 	CHECK(node->get_name() == "suzanne");
 
@@ -244,10 +242,9 @@ TEST_CASE("[SceneTree][GLTFDocument] Load suzanne.glb") {
 	CHECK(node->get_child(1)->is_class("Camera3D"));
 	CHECK(node->get_child(1)->get_name() == "Camera");
 
-	// Save scene to gltf
 	test_gltf_save(node);
 
-	// Clean up
+	// Clean up.
 	memdelete(node);
 }
 

@@ -31,6 +31,7 @@
 #ifndef TEST_GLTF_DOCUMENT_H
 #define TEST_GLTF_DOCUMENT_H
 
+#include "modules/gltf/extensions/gltf_document_extension_convert_importer_mesh.h"
 #include "modules/gltf/gltf_document.h"
 #include "scene/main/node.h"
 
@@ -145,6 +146,14 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "filename", "suzanne" } } },
 };
 
+void register_gltf_extension() {
+	GLTFDocument::unregister_all_gltf_document_extensions();
+
+	Ref<GLTFDocumentExtensionConvertImporterMesh> extension_GLTFDocumentExtensionConvertImporterMesh;
+	extension_GLTFDocumentExtensionConvertImporterMesh.instantiate();
+	GLTFDocument::register_gltf_document_extension(extension_GLTFDocumentExtensionConvertImporterMesh);
+}
+
 void test_gltf_document_values(Ref<GLTFDocument> &gltf_document, Ref<GLTFState> &gltf_state, const GLTFTestCase &test_case) {
 	// Check gltf load
 	const Error err = gltf_document->append_from_file(TestUtils::get_data_path(test_case.filename), gltf_state);
@@ -185,6 +194,8 @@ void test_gltf_save(Node *node) {
 }
 
 TEST_CASE("[SceneTree][GLTFDocument] Load cube.gltf") {
+	register_gltf_extension();
+
 	Ref<GLTFDocument> gltf_document;
 	gltf_document.instantiate();
 	Ref<GLTFState> gltf_state;
@@ -195,13 +206,13 @@ TEST_CASE("[SceneTree][GLTFDocument] Load cube.gltf") {
 	// Create scene
 	Node *node = gltf_document->generate_scene(gltf_state);
 
-	CHECK(node->get_class_name() == "Node3D");
+	CHECK(node->is_class("Node3D"));
 	CHECK(node->get_name() == "cube");
 
-	CHECK(node->get_child(0)->get_class_name() == "ImporterMeshInstance3D");
+	CHECK(node->get_child(0)->is_class("MeshInstance3D"));
 	CHECK(node->get_child(0)->get_name() == "Cube");
 
-	CHECK(node->get_child(1)->get_class_name() == "AnimationPlayer");
+	CHECK(node->get_child(1)->is_class("AnimationPlayer"));
 	CHECK(node->get_child(1)->get_name() == "AnimationPlayer");
 
 	// Save scene to gltf
@@ -212,6 +223,8 @@ TEST_CASE("[SceneTree][GLTFDocument] Load cube.gltf") {
 }
 
 TEST_CASE("[SceneTree][GLTFDocument] Load suzanne.glb") {
+	register_gltf_extension();
+
 	Ref<GLTFDocument> gltf_document;
 	gltf_document.instantiate();
 	Ref<GLTFState> gltf_state;
@@ -222,13 +235,13 @@ TEST_CASE("[SceneTree][GLTFDocument] Load suzanne.glb") {
 	// Create scene
 	Node *node = gltf_document->generate_scene(gltf_state);
 
-	CHECK(node->get_class_name() == "Node3D");
+	CHECK(node->is_class("Node3D"));
 	CHECK(node->get_name() == "suzanne");
 
-	CHECK(node->get_child(0)->get_class_name() == "ImporterMeshInstance3D");
+	CHECK(node->get_child(0)->is_class("MeshInstance3D"));
 	CHECK(node->get_child(0)->get_name() == "Suzanne");
 
-	CHECK(node->get_child(1)->get_class_name() == "Camera3D");
+	CHECK(node->get_child(1)->is_class("Camera3D"));
 	CHECK(node->get_child(1)->get_name() == "Camera");
 
 	// Save scene to gltf

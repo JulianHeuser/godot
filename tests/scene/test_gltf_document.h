@@ -61,12 +61,11 @@ struct GLTFTestCase {
 };
 
 const GLTFTestCase glTF_test_cases[] = {
-	// Test 1.
 	{ "models/cube.gltf",
 			"",
 			"Khronos glTF Blender I/O v4.3.47",
 			"2.0",
-			// Array sizes.
+			// Here are the array sizes.
 			{
 					{ "nodes", 1 },
 					{ "buffers", 1 },
@@ -84,7 +83,7 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "skeletons", 0 },
 					{ "animations", 1 },
 			},
-			// Json array sizes.
+			// Here are the json array sizes.
 			{
 					{ "scenes", 1 },
 					{ "nodes", 1 },
@@ -94,18 +93,17 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "bufferViews", 13 },
 					{ "buffers", 1 },
 			},
-			// Key-value pairs.
+			// Here are the key-value pairs.
 			{
 					{ "major_version", 2 },
 					{ "minor_version", 0 },
 					{ "scene_name", "cube" },
 					{ "filename", "cube" } } },
-	// Test 2.
 	{ "models/suzanne.glb",
 			"this is example text",
 			"Khronos glTF Blender I/O v4.3.47",
 			"2.0",
-			// Array sizes.
+			// Here are the array sizes.
 			{
 					{ "glb_data", 68908 },
 					{ "nodes", 2 },
@@ -125,7 +123,7 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "skeletons", 0 },
 					{ "animations", 0 },
 			},
-			// Json array sizes.
+			// Here are the json array sizes.
 			{
 					{ "scenes", 1 },
 					{ "nodes", 2 },
@@ -138,7 +136,7 @@ const GLTFTestCase glTF_test_cases[] = {
 					{ "bufferViews", 5 },
 					{ "buffers", 1 },
 			},
-			// Key-value pairs.
+			// Here are the key-value pairs.
 			{
 					{ "major_version", 2 },
 					{ "minor_version", 0 },
@@ -149,7 +147,7 @@ const GLTFTestCase glTF_test_cases[] = {
 void register_gltf_extension() {
 	GLTFDocument::unregister_all_gltf_document_extensions();
 
-	// This extension ensures meshes become a MeshInstance3D and not an ImporterMeshInstance3D.
+	// Ensures meshes become a MeshInstance3D and not an ImporterMeshInstance3D.
 	Ref<GLTFDocumentExtensionConvertImporterMesh> extension_GLTFDocumentExtensionConvertImporterMesh;
 	extension_GLTFDocumentExtensionConvertImporterMesh.instantiate();
 	GLTFDocument::register_gltf_document_extension(extension_GLTFDocumentExtensionConvertImporterMesh);
@@ -185,7 +183,7 @@ void test_gltf_save(Node *node) {
 
 	gltf_document_save->append_from_scene(node, gltf_state_save);
 
-	// Check saving to gltf and to glb.
+	// Check saving the scene to gltf and glb.
 	const Error err_save_gltf = gltf_document_save->write_to_filesystem(gltf_state_save, TestUtils::get_temp_path("cube.gltf"));
 	const Error err_save_glb = gltf_document_save->write_to_filesystem(gltf_state_save, TestUtils::get_temp_path("cube.glb"));
 	CHECK(err_save_gltf == OK);
@@ -204,7 +202,7 @@ TEST_CASE("[SceneTree][GLTFDocument] Load cube.gltf") {
 
 	Node *node = gltf_document->generate_scene(gltf_state);
 
-	// Check loaded scene.
+	// Check the loaded scene.
 	CHECK(node->is_class("Node3D"));
 	CHECK(node->get_name() == "cube");
 
@@ -216,7 +214,7 @@ TEST_CASE("[SceneTree][GLTFDocument] Load cube.gltf") {
 
 	test_gltf_save(node);
 
-	// Clean up.
+	// Clean up the node.
 	memdelete(node);
 }
 
@@ -232,7 +230,7 @@ TEST_CASE("[SceneTree][GLTFDocument] Load suzanne.glb") {
 
 	Node *node = gltf_document->generate_scene(gltf_state);
 
-	// Check loaded scene.
+	// Check the loaded scene.
 	CHECK(node->is_class("Node3D"));
 	CHECK(node->get_name() == "suzanne");
 
@@ -244,7 +242,7 @@ TEST_CASE("[SceneTree][GLTFDocument] Load suzanne.glb") {
 
 	test_gltf_save(node);
 
-	// Clean up.
+	// Clean up the node.
 	memdelete(node);
 }
 

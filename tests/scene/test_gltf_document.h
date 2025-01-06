@@ -33,7 +33,6 @@
 
 #include "modules/gltf/extensions/gltf_document_extension_convert_importer_mesh.h"
 #include "modules/gltf/gltf_document.h"
-#include "scene/main/node.h"
 
 #include "tests/test_macros.h"
 #include "tests/test_utils.h"
@@ -153,35 +152,35 @@ void register_gltf_extension() {
 	GLTFDocument::register_gltf_document_extension(extension_GLTFDocumentExtensionConvertImporterMesh);
 }
 
-void test_gltf_document_values(Ref<GLTFDocument> &gltf_document, Ref<GLTFState> &gltf_state, const GLTFTestCase &test_case) {
-	const Error err = gltf_document->append_from_file(TestUtils::get_data_path(test_case.filename), gltf_state);
+void test_gltf_document_values(Ref<GLTFDocument> &p_gltf_document, Ref<GLTFState> &p_gltf_state, const GLTFTestCase &p_test_case) {
+	const Error err = p_gltf_document->append_from_file(TestUtils::get_data_path(p_test_case.filename), p_gltf_state);
 	REQUIRE(err == OK);
 
-	for (GLTFArraySize array_size : test_case.array_sizes) {
-		CHECK_MESSAGE(((Array)(gltf_state->getvar(array_size.key))).size() == array_size.val, "Expected \"", array_size.key, "\" to have ", array_size.val, " elements.");
+	for (GLTFArraySize array_size : p_test_case.array_sizes) {
+		CHECK_MESSAGE(((Array)(p_gltf_state->getvar(array_size.key))).size() == array_size.val, "Expected \"", array_size.key, "\" to have ", array_size.val, " elements.");
 	}
 
-	for (GLTFArraySize array_size : test_case.json_array_sizes) {
-		CHECK(gltf_state->get_json().has(array_size.key));
-		CHECK_MESSAGE(((Array)(gltf_state->get_json()[array_size.key])).size() == array_size.val, "Expected \"", array_size.key, "\" to have ", array_size.val, " elements.");
+	for (GLTFArraySize array_size : p_test_case.json_array_sizes) {
+		CHECK(p_gltf_state->get_json().has(array_size.key));
+		CHECK_MESSAGE(((Array)(p_gltf_state->get_json()[array_size.key])).size() == array_size.val, "Expected \"", array_size.key, "\" to have ", array_size.val, " elements.");
 	}
 
-	for (GLTFKeyValue key_value : test_case.keyvalues) {
-		CHECK_MESSAGE(gltf_state->getvar(key_value.key) == key_value.val, "Expected \"", key_value.key, "\" to be \"", key_value.val, "\".");
+	for (GLTFKeyValue key_value : p_test_case.keyvalues) {
+		CHECK_MESSAGE(p_gltf_state->getvar(key_value.key) == key_value.val, "Expected \"", key_value.key, "\" to be \"", key_value.val, "\".");
 	}
 
-	CHECK(gltf_state->get_copyright() == test_case.copywrite);
-	CHECK(((Dictionary)gltf_state->get_json()["asset"])["generator"] == test_case.generator);
-	CHECK(((Dictionary)gltf_state->get_json()["asset"])["version"] == test_case.version);
+	CHECK(p_gltf_state->get_copyright() == p_test_case.copywrite);
+	CHECK(((Dictionary)p_gltf_state->get_json()["asset"])["generator"] == p_test_case.generator);
+	CHECK(((Dictionary)p_gltf_state->get_json()["asset"])["version"] == p_test_case.version);
 }
 
-void test_gltf_save(Node *node) {
+void test_gltf_save(Node *p_node) {
 	Ref<GLTFDocument> gltf_document_save;
 	gltf_document_save.instantiate();
 	Ref<GLTFState> gltf_state_save;
 	gltf_state_save.instantiate();
 
-	gltf_document_save->append_from_scene(node, gltf_state_save);
+	gltf_document_save->append_from_scene(p_node, gltf_state_save);
 
 	// Check saving the scene to gltf and glb.
 	const Error err_save_gltf = gltf_document_save->write_to_filesystem(gltf_state_save, TestUtils::get_temp_path("cube.gltf"));
